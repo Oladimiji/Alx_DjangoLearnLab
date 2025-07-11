@@ -1,1 +1,1 @@
-# LibraryProject Django App
+# LibraryProject2
