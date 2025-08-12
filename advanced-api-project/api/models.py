@@ -1,36 +1,24 @@
+
 from django.db import models
+from django.utils import timezone
 
-# ----------------------------------------------------------
-# Author Model
-# Purpose:
-# - Represents an author of one or more books.
-# - 'name' stores the author's name.
-# Relationships:
-# - Has a one-to-many relationship with Book via ForeignKey.
-# ----------------------------------------------------------
+# Author model: represents a book author
 class Author(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, help_text="Full name of the author.")
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
-
-# ----------------------------------------------------------
-# Book Model
-# Purpose:
-# - Represents a book with title, publication year, and its author.
-# - 'author' ForeignKey establishes the link to Author.
-# Relationships:
-# - Many books can belong to a single author.
-# ----------------------------------------------------------
+# Book model: represents a book written by an author
 class Book(models.Model):
-    title = models.CharField(max_length=255)
-    publication_year = models.IntegerField()
+    title = models.CharField(max_length=255, help_text="Title of the book.")
+    publication_year = models.IntegerField(help_text="Year the book was published.")
     author = models.ForeignKey(
         Author,
+        on_delete=models.CASCADE,
         related_name='books',  # Enables reverse lookup: author.books.all()
-        on_delete=models.CASCADE
+        help_text="Author who wrote the book."
     )
 
-    def _str_(self):
-        return self.title
+    def __str__(self):
+        return f"{self.title} ({self.publication_year})"
