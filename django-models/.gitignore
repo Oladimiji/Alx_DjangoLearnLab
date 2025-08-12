@@ -1,8 +1,0 @@
-echo "
-*.pyc
-__pycache__/
-db.sqlite3
-.env
-*.log
-/static/
-" > .gitignore
